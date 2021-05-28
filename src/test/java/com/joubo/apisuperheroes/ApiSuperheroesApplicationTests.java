@@ -10,4 +10,6 @@ class ApiSuperheroesApplicationTests {
 	void contextLoads() {
 	}
 
+
+
 }
