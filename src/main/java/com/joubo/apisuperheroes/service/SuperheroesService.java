@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface SuperheroesService {
 
-  List<Superheroe> getAllSuperheroes();
+  List<Superheroe> getAllSuperheroes(String palabra);
 
   Superheroe getSuperheroe(long id);
-
-  Superheroe getSuperheroe(String nombre);
 
   Superheroe updateSuperheroe(Superheroe superheroe);
 
