@@ -1,5 +1,6 @@
 package com.joubo.apisuperheroes.error;
 
+import com.joubo.apisuperheroes.exception.SuperHeroeNoEncontrado;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       final RuntimeException ex, final WebRequest request) {
     final String bodyOfResponse = "El recurso indicado no existe";
     return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND,
+        request);
+  }
+
+  @ExceptionHandler({SuperHeroeNoEncontrado.class})
+  protected ResponseEntity<Object> handleRecursoNoEncontrado(
+      final RuntimeException ex, final WebRequest request) {
+    return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND,
         request);
   }
 

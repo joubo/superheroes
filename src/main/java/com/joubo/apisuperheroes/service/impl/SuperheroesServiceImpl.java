@@ -1,6 +1,7 @@
 package com.joubo.apisuperheroes.service.impl;
 
 import com.joubo.apisuperheroes.entity.Superheroe;
+import com.joubo.apisuperheroes.exception.SuperHeroeNoEncontrado;
 import com.joubo.apisuperheroes.repository.SuperheroesRepository;
 import com.joubo.apisuperheroes.service.SuperheroesService;
 import java.util.List;
@@ -22,7 +23,9 @@ public class SuperheroesServiceImpl implements SuperheroesService {
   @Override
   public Superheroe getSuperheroe(long id) {
     Optional<Superheroe> superheroe = superheroesRepository.findById(id);
-    return superheroe.orElse(null);
+    return superheroe
+        .orElseThrow(
+            () -> new SuperHeroeNoEncontrado(String.format("No existe el superheroe con id: %s", id)));
   }
 
   @Override
