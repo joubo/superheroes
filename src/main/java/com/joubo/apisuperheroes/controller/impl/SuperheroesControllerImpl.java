@@ -41,7 +41,7 @@ public class SuperheroesControllerImpl implements SuperheroesController {
   }
 
   @DeleteMapping("/superheroe/{id}")
-  public ResponseEntity<HttpStatus> deleteSuperheroe(long id) {
+  public ResponseEntity<HttpStatus> deleteSuperheroe(@PathVariable long id) {
     superheroesService.deleteSuperheroe(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
