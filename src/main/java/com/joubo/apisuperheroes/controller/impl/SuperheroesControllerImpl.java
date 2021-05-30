@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,14 +50,18 @@ public class SuperheroesControllerImpl implements SuperheroesController {
 
   @TrackTime
   @PutMapping("/superheroe")
-  public ResponseEntity<Superheroe> updateSuperheroe(@RequestBody Superheroe superheroe) {
+  public ResponseEntity<Superheroe> updateSuperheroe(
+      @RequestHeader("Authorization") String authorization,
+      @RequestBody Superheroe superheroe) {
     log.info("SuperheroesController: updateSuperheroe");
     return new ResponseEntity<>(superheroesService.updateSuperheroe(superheroe), HttpStatus.OK);
   }
 
   @TrackTime
   @DeleteMapping("/superheroe/{id}")
-  public ResponseEntity<HttpStatus> deleteSuperheroe(@PathVariable long id) {
+  public ResponseEntity<HttpStatus> deleteSuperheroe(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable long id) {
     log.info("SuperheroesController: deleteSuperheroe");
     superheroesService.deleteSuperheroe(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
