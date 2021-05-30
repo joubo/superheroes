@@ -1,5 +1,6 @@
 package com.joubo.apisuperheroes.controller.impl;
 
+import com.joubo.apisuperheroes.aop.TrackTime;
 import com.joubo.apisuperheroes.controller.SuperheroesController;
 import com.joubo.apisuperheroes.entity.Superheroe;
 import com.joubo.apisuperheroes.service.SuperheroesService;
@@ -30,6 +31,7 @@ public class SuperheroesControllerImpl implements SuperheroesController {
   @Autowired
   CacheManager cacheManager;
 
+  @TrackTime
   @GetMapping("/superheroes")
   public ResponseEntity<List<Superheroe>> getAllSuperheroes(
       @RequestParam(value = "palabra", required = false, defaultValue = "") String palabra) {
@@ -38,18 +40,21 @@ public class SuperheroesControllerImpl implements SuperheroesController {
         superheroesService.getAllSuperheroes(palabra), HttpStatus.OK);
   }
 
+  @TrackTime
   @GetMapping("/superheroes/{id}")
   public ResponseEntity<Superheroe> getSuperheroe(@PathVariable(value = "id") long id) {
     log.info("SuperheroesController: getSuperheroe");
     return new ResponseEntity<>(superheroesService.getSuperheroe(id), HttpStatus.OK);
   }
 
+  @TrackTime
   @PutMapping("/superheroe")
   public ResponseEntity<Superheroe> updateSuperheroe(@RequestBody Superheroe superheroe) {
     log.info("SuperheroesController: updateSuperheroe");
     return new ResponseEntity<>(superheroesService.updateSuperheroe(superheroe), HttpStatus.OK);
   }
 
+  @TrackTime
   @DeleteMapping("/superheroe/{id}")
   public ResponseEntity<HttpStatus> deleteSuperheroe(@PathVariable long id) {
     log.info("SuperheroesController: deleteSuperheroe");
@@ -57,6 +62,7 @@ public class SuperheroesControllerImpl implements SuperheroesController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
+  @TrackTime
   @DeleteMapping("/superheroes/cache")
   public ResponseEntity<HttpStatus> limpiarCacheSuperheroes() {
     log.info("Refrescando la caché de superheroes");
