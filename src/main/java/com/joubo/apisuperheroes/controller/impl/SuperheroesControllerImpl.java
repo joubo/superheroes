@@ -3,8 +3,10 @@ package com.joubo.apisuperheroes.controller.impl;
 import com.joubo.apisuperheroes.controller.SuperheroesController;
 import com.joubo.apisuperheroes.entity.Superheroe;
 import com.joubo.apisuperheroes.service.SuperheroesService;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +26,9 @@ public class SuperheroesControllerImpl implements SuperheroesController {
 
   @Autowired
   SuperheroesService superheroesService;
+
+  @Autowired
+  CacheManager cacheManager;
 
   @GetMapping("/superheroes")
   public ResponseEntity<List<Superheroe>> getAllSuperheroes(
@@ -49,6 +54,14 @@ public class SuperheroesControllerImpl implements SuperheroesController {
   public ResponseEntity<HttpStatus> deleteSuperheroe(@PathVariable long id) {
     log.info("SuperheroesController: deleteSuperheroe");
     superheroesService.deleteSuperheroe(id);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @DeleteMapping("/superheroes/cache")
+  public ResponseEntity<HttpStatus> limpiarCacheSuperheroes() {
+    log.info("Refrescando la caché de superheroes");
+    Objects.requireNonNull(cacheManager.getCache("superheroes")).clear();
+    Objects.requireNonNull(cacheManager.getCache("superheroe")).clear();
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 

@@ -22,4 +22,7 @@ public interface SuperheroesController {
 
   @ApiOperation(value = "Eliminar un superheroe", notes = "Se elimina el superheroe indicado" )
   ResponseEntity<HttpStatus> deleteSuperheroe(long id);
+
+  @ApiOperation(value = "Limpiar caché de superheroe", notes = "Se vacía la caché de superheroes" )
+  ResponseEntity<HttpStatus> limpiarCacheSuperheroes();
 }
