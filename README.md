@@ -30,7 +30,7 @@ Ruta base de la API Rest: http://localhost:8080
 Swagger-ui: http://localhost:8080/swagger-ui.html
 
 ## Servicios REST publicados ##
-- Sin atenticación:
+- Sin autenticación:
   - http://localhost:8080/superheroes (HTTP:GET)
   - http://localhost:8080/superheroes/{id} (HTTP:GET)
   - http://localhost:8080/superheroes/cache (HTTP:DELETE)
