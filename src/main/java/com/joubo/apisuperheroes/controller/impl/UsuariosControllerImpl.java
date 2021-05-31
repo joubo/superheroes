@@ -1,7 +1,7 @@
 package com.joubo.apisuperheroes.controller.impl;
 
 import com.joubo.apisuperheroes.controller.UsuariosController;
-import com.joubo.apisuperheroes.dto.Usuario;
+import com.joubo.apisuperheroes.dto.UsuarioDTO;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,10 +19,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UsuariosControllerImpl implements UsuariosController {
 
   @PostMapping("usuario")
-  public Usuario login(@RequestParam("usuario") String usuario) {
+  public UsuarioDTO login(@RequestParam("usuario") String usuario) {
 
     String token = getJWTToken(usuario);
-    Usuario usu = new Usuario();
+    UsuarioDTO usu = new UsuarioDTO();
     usu.setNombre(usuario);
     usu.setToken(token);
     return usu;

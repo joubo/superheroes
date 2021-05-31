@@ -1,6 +1,6 @@
 package com.joubo.apisuperheroes.controller;
 
-import com.joubo.apisuperheroes.dto.Usuario;
+import com.joubo.apisuperheroes.dto.UsuarioDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -8,6 +8,6 @@ import io.swagger.annotations.ApiOperation;
 public interface UsuariosController {
 
   @ApiOperation(value = "Obtener token para un usuario", notes = "Devuelve un token para operaciones de modificación de superheroes")
-  Usuario login(String usuario);
+  UsuarioDTO login(String usuario);
 
 }

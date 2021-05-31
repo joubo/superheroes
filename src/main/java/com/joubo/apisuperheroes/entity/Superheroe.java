@@ -1,5 +1,6 @@
 package com.joubo.apisuperheroes.entity;
 
+import com.joubo.apisuperheroes.dto.SuperheroeDTO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,5 +20,11 @@ public class Superheroe {
   private long id;
 
   private String nombre;
+
+  public Superheroe (SuperheroeDTO superheroeDTO) {
+    super();
+    this.id = superheroeDTO.getId();
+    this.nombre = superheroeDTO.getNombre();
+  }
 
 }

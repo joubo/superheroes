@@ -2,7 +2,7 @@ package com.joubo.apisuperheroes.controller.impl;
 
 import com.joubo.apisuperheroes.aop.TrackTime;
 import com.joubo.apisuperheroes.controller.SuperheroesController;
-import com.joubo.apisuperheroes.entity.Superheroe;
+import com.joubo.apisuperheroes.dto.SuperheroeDTO;
 import com.joubo.apisuperheroes.service.SuperheroesService;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class SuperheroesControllerImpl implements SuperheroesController {
 
   @TrackTime
   @GetMapping("/superheroes")
-  public ResponseEntity<List<Superheroe>> getAllSuperheroes(
+  public ResponseEntity<List<SuperheroeDTO>> getAllSuperheroes(
       @RequestParam(value = "palabra", required = false, defaultValue = "") String palabra) {
     log.info("SuperheroesController: getAllSuperheroes");
     return new ResponseEntity<>(
@@ -43,18 +43,18 @@ public class SuperheroesControllerImpl implements SuperheroesController {
 
   @TrackTime
   @GetMapping("/superheroes/{id}")
-  public ResponseEntity<Superheroe> getSuperheroe(@PathVariable(value = "id") long id) {
+  public ResponseEntity<SuperheroeDTO> getSuperheroe(@PathVariable(value = "id") long id) {
     log.info("SuperheroesController: getSuperheroe");
     return new ResponseEntity<>(superheroesService.getSuperheroe(id), HttpStatus.OK);
   }
 
   @TrackTime
   @PutMapping("/superheroe")
-  public ResponseEntity<Superheroe> updateSuperheroe(
+  public ResponseEntity<SuperheroeDTO> updateSuperheroe(
       @RequestHeader("Authorization") String authorization,
-      @RequestBody Superheroe superheroe) {
+      @RequestBody SuperheroeDTO superheroeDTO) {
     log.info("SuperheroesController: updateSuperheroe");
-    return new ResponseEntity<>(superheroesService.updateSuperheroe(superheroe), HttpStatus.OK);
+    return new ResponseEntity<>(superheroesService.updateSuperheroe(superheroeDTO), HttpStatus.OK);
   }
 
   @TrackTime

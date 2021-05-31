@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import com.joubo.apisuperheroes.dto.SuperheroeDTO;
 import com.joubo.apisuperheroes.entity.Superheroe;
 import com.joubo.apisuperheroes.repository.SuperheroesRepository;
 import com.joubo.apisuperheroes.service.SuperheroesService;
@@ -28,7 +29,7 @@ class ApiSuperheroesApplicationTests {
   @Test
   void whenGetAllSuperheroes_ReturnListOfSuperheroes() {
     when(superheroesRepository.findByNameContaining("")).thenReturn(getListSuperheroes());
-    List<Superheroe> resultado = superheroesService.getAllSuperheroes("");
+    List<SuperheroeDTO> resultado = superheroesService.getAllSuperheroes("");
 
     assertEquals(4, resultado.size());
   }
@@ -36,7 +37,7 @@ class ApiSuperheroesApplicationTests {
   @Test
   void whenGetSuperheroeById_ReturnSuperheroe() {
     when(superheroesRepository.findById(1L)).thenReturn(Optional.of(getSuperheroe()));
-    Superheroe resultado = superheroesService.getSuperheroe(1L);
+    SuperheroeDTO resultado = superheroesService.getSuperheroe(1L);
 
     assertNotNull(resultado);
   }

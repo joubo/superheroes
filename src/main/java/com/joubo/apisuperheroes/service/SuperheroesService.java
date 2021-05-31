@@ -1,16 +1,16 @@
 package com.joubo.apisuperheroes.service;
 
-import com.joubo.apisuperheroes.entity.Superheroe;
+import com.joubo.apisuperheroes.dto.SuperheroeDTO;
 
 import java.util.List;
 
 public interface SuperheroesService {
 
-  List<Superheroe> getAllSuperheroes(String palabra);
+  List<SuperheroeDTO> getAllSuperheroes(String palabra);
 
-  Superheroe getSuperheroe(long id);
+  SuperheroeDTO getSuperheroe(long id);
 
-  Superheroe updateSuperheroe(Superheroe superheroe);
+  SuperheroeDTO updateSuperheroe(SuperheroeDTO superheroe);
 
   void deleteSuperheroe(long id);
 }

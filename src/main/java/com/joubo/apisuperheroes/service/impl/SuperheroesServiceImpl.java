@@ -1,9 +1,11 @@
 package com.joubo.apisuperheroes.service.impl;
 
+import com.joubo.apisuperheroes.dto.SuperheroeDTO;
 import com.joubo.apisuperheroes.entity.Superheroe;
 import com.joubo.apisuperheroes.exception.SuperHeroeNoEncontrado;
 import com.joubo.apisuperheroes.repository.SuperheroesRepository;
 import com.joubo.apisuperheroes.service.SuperheroesService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +24,25 @@ public class SuperheroesServiceImpl implements SuperheroesService {
 
   @Override
   @Cacheable("superheroes")
-  public List<Superheroe> getAllSuperheroes(String palabra) {
+  public List<SuperheroeDTO> getAllSuperheroes(String palabra) {
+
     log.info("SuperheroesService: getAllSuperheroes");
-    return superheroesRepository.findByNameContaining(palabra.toLowerCase());
+    List<Superheroe> superHeroes = superheroesRepository
+        .findByNameContaining(palabra.toLowerCase());
+    List<SuperheroeDTO> superheroeDTOS = new ArrayList<>();
+    superHeroes.forEach(s ->
+        superheroeDTOS.add(new SuperheroeDTO(s))
+    );
+    return superheroeDTOS;
   }
 
   @Override
   @Cacheable("superheroe")
-  public Superheroe getSuperheroe(long id) {
+  public SuperheroeDTO getSuperheroe(long id) {
     log.info("SuperheroesService: getSuperheroe");
     Optional<Superheroe> superheroe = superheroesRepository.findById(id);
     return superheroe
+        .map(SuperheroeDTO::new)
         .orElseThrow(
             () -> new SuperHeroeNoEncontrado(
                 String.format("No existe el superheroe con id: %s", id)));
@@ -42,9 +52,10 @@ public class SuperheroesServiceImpl implements SuperheroesService {
   @Caching(evict = {
       @CacheEvict(value="superheroe", allEntries=true),
       @CacheEvict(value="superheroes", allEntries=true)})
-  public Superheroe updateSuperheroe(Superheroe superheroe) {
+  public SuperheroeDTO updateSuperheroe(SuperheroeDTO superheroeDTO) {
     log.info("SuperheroesService: updateSuperheroe");
-    return superheroesRepository.save(superheroe);
+    Superheroe superheroe = superheroesRepository.save(new Superheroe(superheroeDTO));
+    return new SuperheroeDTO(superheroe);
   }
 
   @Override
