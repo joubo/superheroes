@@ -14,4 +14,7 @@ INSERT INTO superheroes (nombre) VALUES
   ('Arrow'),
   ('Flash'),
   ('Batman'),
-  ('Viuda Negra');
+  ('Viuda Negra'),
+  ('Manolito el fuerte'),
+  ('Wonderwoman'),
+  ('Aquaman');
