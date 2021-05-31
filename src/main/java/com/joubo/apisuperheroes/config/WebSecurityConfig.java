@@ -19,7 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests()
         .antMatchers(HttpMethod.POST, "/usuario").permitAll()
-        .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
+        .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
+            "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
         .antMatchers(HttpMethod.GET, "/superheroes*/**").permitAll()
         .antMatchers(HttpMethod.DELETE, "/superheroes/cache").permitAll()
         .anyRequest().authenticated();
